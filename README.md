@@ -1,9 +1,40 @@
 # Optimal cantilever retaining wall designs
 
-These are my forays into the eponymous subject.
+These are my forays into the subject.
 
 Present efforts are towards formulating models,
 but I am susceptible to serendipitous injunctions of inspiration.
+
+<!-- omit in toc -->
+## Contents
+- [Models](#models)
+- [Reproducibility](#reproducibility)
+- [Citing](#citing)
+- [License](#license)
+- [Contact](#contact)
+- [Acknowledgements](#acknowledgements)
+
+## Models
+
+<!-- omit in toc -->
+### Stability-constrained economic proportioning (SCEP)
+
+SCEP proportions a wall
+such that the cross-sectional area is minimized
+while keeping the safety factors against failure modes
+within required values.
+
+SCEP variant 1
+will be soon.
+
+SCEP variant 2
+(see [`mod__scep-02.ipynb`](./mod__scep-02.ipynb))
+considers the
+toe length, heel length,
+stem height, footing thickness,
+and
+stem thicknesses (at the base and at the tip)
+as optimization variables.
 
 ## Reproducibility
 
@@ -19,8 +50,14 @@ SciPy.
 ## Citing
 
 Should you wish to cite this work
-(or any of the models presented herein)
-please use the following BibLaTeX entry.
+(or any of the models presented herein),
+use
+
+> Cahig, C. (2026, June 12). *Optimal cantilever retaining wall designs*. GitHub. Retrieved June 14, 2026, from https://github.com/christian-cahig/OptiCantiRetWall
+
+with the applicable access date.
+If you are using LaTeX,
+use the following BibLaTeX entry.
 
 ```bibtex
 @Online{OptiCantiRetWall,
