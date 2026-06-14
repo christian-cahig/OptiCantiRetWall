@@ -54,7 +54,12 @@ Should you wish to cite this work
 (or any of the models presented herein),
 use
 
-> Cahig, C. (2026, June 12). *Optimal cantilever retaining wall designs*. GitHub. Retrieved June 14, 2026, from https://github.com/christian-cahig/OptiCantiRetWall
+> Cahig, C.
+> (2026, June 12).
+> *Optimal cantilever retaining wall designs*.
+> GitHub.
+> Retrieved June 14, 2026,
+> from https://github.com/christian-cahig/OptiCantiRetWall
 
 with the applicable access date.
 If you are using LaTeX,
