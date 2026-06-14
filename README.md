@@ -7,6 +7,7 @@ but I am susceptible to serendipitous injunctions of inspiration.
 
 <!-- omit in toc -->
 ## Contents
+
 - [Models](#models)
 - [Reproducibility](#reproducibility)
 - [Citing](#citing)
@@ -20,12 +21,12 @@ but I am susceptible to serendipitous injunctions of inspiration.
 ### Stability-constrained economic proportioning (SCEP)
 
 SCEP proportions a wall
-such that the cross-sectional area is minimized
-while keeping the safety factors against failure modes
+such that its cross-sectional area is minimized
+while keeping its corresponding safety factors against failure modes
 within required values.
 
 SCEP variant 1
-will be soon.
+will be released soon.
 
 SCEP variant 2
 (see [`mod__scep-02.ipynb`](./mod__scep-02.ipynb))
