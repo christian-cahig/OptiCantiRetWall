@@ -1,0 +1,97 @@
+"""
+Core functionalities for the repository github.com/christian-cahig/OptiCantiRetWall
+
+(c) 2026, Christian Cahig
+"""
+
+import math as mt
+
+__author__ = "Christian Cahig"
+__version__ = "0.1.0"
+__all__ = [
+    "Fa_Rankine",
+    "Fa_MazGanj",
+    "Qb_linear",
+]
+
+WALL_PROPS_KEYS = {
+    "b_t",  # Toe length
+    "b_h",  # Heel length
+    "b_sb", # Stem width at base
+    "b_st", # Stem width at tip
+    "b_f",  # Footing width
+    "h_s",  # Stem height
+    "h_f",  # Footing thickness
+    "x_k",  # Shear key location (from toe tip)
+    "b_k",  # Shear key width
+    "h_k",  # Shear key height
+}
+DEV_WEIGHT_KEYS = {"mag", "loc"}
+LAT_FORCES_KEYS = {"mag", "ang", "loc"}
+SOIL_QDIST_KEYS = {"min", "max", "ecc", "Mr", "Mo"}
+
+def Fa_Rankine(
+    z : float,
+    y : float,
+    phi : float,
+    c : float = 0.0,
+    theta : float = 0.0,
+) -> dict[float]:
+    phi_ = mt.radians(phi)
+    
+    Ka = (1 - mt.sin(phi_)) / (1 + mt.sin(phi_))
+
+    Pa = y * Ka * z
+    Fa = 0.5 * Pa * z
+
+    return {"mag" : Fa, "ang" : theta, "loc" : z / 3}
+
+def Fa_MazGanj(
+    z : float,
+    y : float,
+    phi : float,
+    c : float = 0.0,
+    theta : float = 0.0,
+) -> dict[float]:
+    phi_ = mt.radians(phi); the_ = mt.radians(theta)
+    zc = c / (y * z)
+    cas = mt.cos(the_) ** 2
+    cp = mt.cos(phi_); cps = cp ** 2
+    csp = cp * mt.sin(phi_)
+
+    Ka = (4 * cas * (cas - cps)) + (4 * (zc ** 2) * cps) + (8 * zc * cas * csp)
+    Ka = (2 * cas) + (2 * zc * csp) - mt.sqrt(Ka)
+    Ka = Ka / cps; Ka = Ka - 1
+
+    Pa = y * Ka * z * mt.cos(the_)
+    Fa = 0.5 * Pa * z
+
+    return {"mag" : Fa, "ang" : theta, "loc" : z / 3}
+
+def Qb_linear(
+    b : float,
+    Fa : dict[float],
+    Fg : dict[float],
+) -> dict[float]:
+    assert b > 0
+    assert set(Fa.keys()) == LAT_FORCES_KEYS
+    assert set(Fg.keys()) == DEV_WEIGHT_KEYS
+
+    bet_ = mt.radians(Fa["ang"])
+    Fah = Fa["mag"] * mt.cos(bet_)
+    Fav = Fa["mag"] * mt.sin(bet_)
+    Rv = Fg["mag"] + Fav
+
+    Mr = (Fg["mag"] * Fg["loc"]) + (Fav * b)
+    Mo = Fah * Fa["loc"]
+    x_ = (Mr - Mo) / Rv
+    e = (b / 2) - x_
+
+    b6 = b / 6
+    qmax = (Rv / b) * (1 + (e / b6)) if mt.fabs(e) <= b6 else (2 * Rv) / (3 * x_)
+
+    return {
+        "Rh" : Fah, "Rv" : Rv,
+        "Mr" : Mr, "Mo" : Mo,
+        "min" : None, "max" : qmax, "ecc" : e,
+    }
