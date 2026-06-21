@@ -10,6 +10,7 @@ __author__ = "Christian Cahig"
 __version__ = "0.1.0"
 __all__ = [
     "Fa_Rankine",
+    "Fa_ChuRank",
     "Fa_MazGanj",
     "Qb_linear",
 ]
@@ -40,6 +41,24 @@ def Fa_Rankine(
     phi_ = mt.radians(phi); theta = 0.0
     
     Ka = (1 - mt.sin(phi_)) / (1 + mt.sin(phi_))
+    Pa = y * Ka * z
+    Fa = 0.5 * Pa * z
+    Fa = Fa - (2 * c * mt.sqrt(Ka) * z)
+
+    return {"mag" : Fa, "ang" : theta, "loc" : z / 3}
+
+def Fa_ChuRank(
+    z : float,
+    y : float,
+    phi : float,
+    c : float = 0.0,
+    theta : float = 0.0,
+) -> dict[float]:
+    phi_ = mt.radians(phi); the_ = mt.radians(theta)
+    cphi = mt.cos(phi_); cthe = mt.cos(the_)
+    cp2ct2 = mt.sqrt((cthe ** 2) - (cphi ** 2))
+
+    Ka = cthe * (cthe - cp2ct2) / (cthe + cp2ct2)
     Pa = y * Ka * z
     Fa = 0.5 * Pa * z
     Fa = Fa - (2 * c * mt.sqrt(Ka) * z)
