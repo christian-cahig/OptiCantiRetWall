@@ -7,7 +7,7 @@ Core functionalities for the repository github.com/christian-cahig/OptiCantiRetW
 import math as mt
 
 __author__ = "Christian Cahig"
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __all__ = [
     "Fa_Rankine",
     "Fa_ChuRank",
