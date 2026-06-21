@@ -37,12 +37,12 @@ def Fa_Rankine(
     c : float = 0.0,
     theta : float = 0.0,
 ) -> dict[float]:
-    phi_ = mt.radians(phi)
+    phi_ = mt.radians(phi); theta = 0.0
     
     Ka = (1 - mt.sin(phi_)) / (1 + mt.sin(phi_))
-
     Pa = y * Ka * z
     Fa = 0.5 * Pa * z
+    Fa = Fa - (2 * c * mt.sqrt(Ka) * z)
 
     return {"mag" : Fa, "ang" : theta, "loc" : z / 3}
 
