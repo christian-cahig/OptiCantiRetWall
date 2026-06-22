@@ -7,7 +7,7 @@ Core functionalities for the repository github.com/christian-cahig/OptiCantiRetW
 import math as mt
 
 __author__ = "Christian Cahig"
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 __all__ = [
     "Fa_Rankine",
     "Fa_ChuRank",
@@ -57,6 +57,7 @@ def Fa_ChuRank(
     phi_ = mt.radians(phi); the_ = mt.radians(theta)
     cphi = mt.cos(phi_); cthe = mt.cos(the_)
     cp2ct2 = mt.sqrt((cthe ** 2) - (cphi ** 2))
+    c = 0.0
 
     Ka = cthe * (cthe - cp2ct2) / (cthe + cp2ct2)
     Pa = y * Ka * z
