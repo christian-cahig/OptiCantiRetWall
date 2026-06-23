@@ -54,7 +54,7 @@ def Fp_Rankine(
 ) -> dict[float]:
     phi_ = mt.radians(phi); theta = 0.0
     
-    Kp = (1 - mt.sin(phi_)) / (1 + mt.sin(phi_))
+    Kp = (1 + mt.sin(phi_)) / (1 - mt.sin(phi_))
     Pp = y * Kp * z
     Fp = 0.5 * Pp * z
     Fp = Fp + (2 * c * mt.sqrt(Kp) * z)
