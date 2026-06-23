@@ -45,6 +45,22 @@ def Fa_Rankine(
 
     return {"mag" : Fa, "ang" : theta, "loc" : z / 3}
 
+def Fp_Rankine(
+    z : float,
+    y : float,
+    phi : float,
+    c : float = 0.0,
+    theta : float = 0.0,
+) -> dict[float]:
+    phi_ = mt.radians(phi); theta = 0.0
+    
+    Kp = (1 - mt.sin(phi_)) / (1 + mt.sin(phi_))
+    Pp = y * Kp * z
+    Fp = 0.5 * Pp * z
+    Fp = Fp + (2 * c * mt.sqrt(Kp) * z)
+
+    return {"mag" : Fp, "ang" : theta, "loc" : z / 3}
+
 def Fa_ChuRank(
     z : float,
     y : float,
