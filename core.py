@@ -10,6 +10,7 @@ __author__ = "Christian Cahig"
 __version__ = "0.2.1"
 __all__ = [
     "Fa_MazGanj",
+    "Fp_MazGanj",
     "Qb_linear",
 ]
 
@@ -118,6 +119,28 @@ def Fa_MazGanj(
     Fa = 0.5 * Pa * z
 
     return {"mag" : Fa, "ang" : theta, "loc" : z / 3}
+
+def Fp_MazGanj(
+    z : float,
+    y : float,
+    phi : float,
+    c : float = 0.0,
+    theta : float = 0.0,
+) -> dict[float]:
+    phi_ = mt.radians(phi); the_ = mt.radians(theta)
+    zc = c / (y * z)
+    cts = mt.cos(the_) ** 2
+    cp = mt.cos(phi_); cps = cp ** 2
+    csp = cp * mt.sin(phi_)
+
+    Kp = (4 * cts * (cts - cps)) + (4 * (zc ** 2) * cps) + (8 * zc * cts * csp)
+    Kp = (2 * cts) + (2 * zc * csp) + mt.sqrt(Kp)
+    Kp = (Kp / cps) - 1
+
+    Pp = y * Kp * z * mt.cos(the_)
+    Fp = 0.5 * Pp * z
+
+    return {"mag" : Fp, "ang" : theta, "loc" : z / 3}
 
 def Qb_linear(
     b : float,
