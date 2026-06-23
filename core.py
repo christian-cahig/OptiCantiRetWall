@@ -7,7 +7,7 @@ Core functionalities for the repository github.com/christian-cahig/OptiCantiRetW
 import math as mt
 
 __author__ = "Christian Cahig"
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 __all__ = [
     "Fa_Rankine",
     "Fa_ChuRank",
@@ -74,13 +74,13 @@ def Fa_MazGanj(
 ) -> dict[float]:
     phi_ = mt.radians(phi); the_ = mt.radians(theta)
     zc = c / (y * z)
-    cas = mt.cos(the_) ** 2
+    cts = mt.cos(the_) ** 2
     cp = mt.cos(phi_); cps = cp ** 2
     csp = cp * mt.sin(phi_)
 
-    Ka = (4 * cas * (cas - cps)) + (4 * (zc ** 2) * cps) + (8 * zc * cas * csp)
-    Ka = (2 * cas) + (2 * zc * csp) - mt.sqrt(Ka)
-    Ka = Ka / cps; Ka = Ka - 1
+    Ka = (4 * cts * (cts - cps)) + (4 * (zc ** 2) * cps) + (8 * zc * cts * csp)
+    Ka = (2 * cts) + (2 * zc * csp) - mt.sqrt(Ka)
+    Ka = (Ka / cps) - 1
 
     Pa = y * Ka * z * mt.cos(the_)
     Fa = 0.5 * Pa * z
