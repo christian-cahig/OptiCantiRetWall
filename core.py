@@ -79,6 +79,24 @@ def Fa_ChuRank(
 
     return {"mag" : Fa, "ang" : theta, "loc" : z / 3}
 
+def Fp_ChuRank(
+    z : float,
+    y : float,
+    phi : float,
+    c : float = 0.0,
+    theta : float = 0.0,
+) -> dict[float]:
+    phi_ = mt.radians(phi); the_ = mt.radians(theta)
+    cphi = mt.cos(phi_); cthe = mt.cos(the_)
+    cp2ct2 = mt.sqrt((cthe ** 2) - (cphi ** 2))
+
+    Kp = cthe * (cthe + cp2ct2) / (cthe - cp2ct2)
+    Pp = y * Kp * z
+    Fp = 0.5 * Pp * z
+    Fp = Fp + (2 * c * mt.sqrt(Kp) * z)
+
+    return {"mag" : Fp, "ang" : theta, "loc" : z / 3}
+
 def Fa_MazGanj(
     z : float,
     y : float,
