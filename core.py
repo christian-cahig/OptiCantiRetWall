@@ -57,7 +57,6 @@ def Fa_ChuRank(
     phi_ = mt.radians(phi); the_ = mt.radians(theta)
     cphi = mt.cos(phi_); cthe = mt.cos(the_)
     cp2ct2 = mt.sqrt((cthe ** 2) - (cphi ** 2))
-    c = 0.0
 
     Ka = cthe * (cthe - cp2ct2) / (cthe + cp2ct2)
     Pa = y * Ka * z
