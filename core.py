@@ -9,8 +9,6 @@ import math as mt
 __author__ = "Christian Cahig"
 __version__ = "0.2.1"
 __all__ = [
-    "Fa_Rankine",
-    "Fa_ChuRank",
     "Fa_MazGanj",
     "Qb_linear",
 ]
