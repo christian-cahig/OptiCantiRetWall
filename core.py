@@ -157,7 +157,8 @@ def Qb_linear(
     Fah = Fa["mag"] * mt.cos(bet_); Fav = Fa["mag"] * mt.sin(bet_)
     bet_ = mt.radians(Fp["ang"])
     Fph = Fp["mag"] * mt.cos(bet_); Fpv = Fp["mag"] * mt.sin(bet_)
-    Rh = Fah - Fph
+    
+    # Rh = Fah - Fph
     Rv = Fg["mag"] + Fav + Fpv
 
     Mr = (Fg["mag"] * Fg["loc"]) + (Fav * b) + (Fph * Fp["loc"])
@@ -169,7 +170,6 @@ def Qb_linear(
     qmax = (Rv / b) * (1 + (e / b6)) if mt.fabs(e) <= b6 else (2 * Rv) / (3 * x_)
 
     return {
-        "Rh" : Rh, "Rv" : Rv,
         "Mr" : Mr, "Mo" : Mo,
         "min" : None, "max" : qmax, "ecc" : e,
     }
