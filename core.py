@@ -146,17 +146,21 @@ def Qb_linear(
     b : float,
     Fa : dict[float],
     Fg : dict[float],
+    Fp : dict[float] = {k : 0.0 for k in LAT_FORCES_KEYS},
 ) -> dict[float]:
     assert b > 0
     assert set(Fa.keys()) == LAT_FORCES_KEYS
     assert set(Fg.keys()) == DEV_WEIGHT_KEYS
+    assert set(Fp.keys()) == LAT_FORCES_KEYS
 
     bet_ = mt.radians(Fa["ang"])
-    Fah = Fa["mag"] * mt.cos(bet_)
-    Fav = Fa["mag"] * mt.sin(bet_)
-    Rv = Fg["mag"] + Fav
+    Fah = Fa["mag"] * mt.cos(bet_); Fav = Fa["mag"] * mt.sin(bet_)
+    bet_ = mt.radians(Fp["ang"])
+    Fph = Fp["mag"] * mt.cos(bet_); Fpv = Fp["mag"] * mt.sin(bet_)
+    Rh = Fah - Fph
+    Rv = Fg["mag"] + Fav + Fpv
 
-    Mr = (Fg["mag"] * Fg["loc"]) + (Fav * b)
+    Mr = (Fg["mag"] * Fg["loc"]) + (Fav * b) + (Fph * Fp["loc"])
     Mo = Fah * Fa["loc"]
     x_ = (Mr - Mo) / Rv
     e = (b / 2) - x_
@@ -165,7 +169,7 @@ def Qb_linear(
     qmax = (Rv / b) * (1 + (e / b6)) if mt.fabs(e) <= b6 else (2 * Rv) / (3 * x_)
 
     return {
-        "Rh" : Fah, "Rv" : Rv,
+        "Rh" : Rh, "Rv" : Rv,
         "Mr" : Mr, "Mo" : Mo,
         "min" : None, "max" : qmax, "ecc" : e,
     }
